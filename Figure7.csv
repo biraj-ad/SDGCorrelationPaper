@@ -1,0 +1,16 @@
+indicator,interaction,count
+primary_forest,Synergy,0.179487179
+primary_forest,Tradeoff,0.551282051
+primary_forest,Unspecified,0.269230769
+kba_freshwater,Synergy,0.525641026
+kba_freshwater,Tradeoff,0.153846154
+kba_freshwater,Unspecified,0.320512821
+kba_mountain,Synergy,0.525641026
+kba_mountain,Tradeoff,0.141025641
+kba_mountain,Unspecified,0.333333333
+redlist,Synergy,0.512820513
+redlist,Tradeoff,0.179487179
+redlist,Unspecified,0.307692308
+biodiversityaid,Synergy,0.115384615
+biodiversityaid,Tradeoff,0.051282051
+biodiversityaid,Unspecified,0.833333333
