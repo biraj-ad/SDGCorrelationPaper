@@ -29,6 +29,8 @@ if("statnet" %in% rownames(installed.packages())   == FALSE){
   install.packages("igraph")}
 if("statnet" %in% rownames(installed.packages())   == FALSE){
   install.packages("RColorBrewer")}
+if("statnet" %in% rownames(installed.packages())   == FALSE){
+  install.packages("reshape2")}
 
 ```
 
@@ -42,6 +44,7 @@ library(superheat) #for heatmap
 library(gridBase) #for combining base and ggplot together
 library(igraph)
 library(RColorBrewer)
+library(reshape2) #for figure 5
 ```
 
 ## FIGURE 4: Distribution of interactions between forest cover and other SDGs for Nepal and its three ecological zones for 2010. 
@@ -58,5 +61,24 @@ ggplot(fig4, aes(fill = Interaction,y = Count, x = Region, label = Count)) + geo
   labs(y = "Count", x = "") + 
   geom_text(size = 3, position = position_stack(vjust = 0.5)) +
   theme_minimal()
+```
+
+##FIGURE 5: Standardized Time-series graph of SDG 15 Indicators
+```{r}
+alldat = read.csv('Figure5.csv', header = TRUE, sep = ",")
+
+Year = as.integer(alldat$Year)
+alldat = alldat[,-1]
+alldat.z = scale(alldat)
+alldat.z = cbind(Year = Year, alldat.z)
+alldat.z = as.data.frame(alldat.z)
+mdf = reshape2::melt(alldat.z, id.var = "Year")
+
+target1 = c("primary_forest", "kba_freshwater", "kba_mountain", "redlist", "biodiversityaid" )
+mdf2 = filter(mdf, variable %in% target1)
+
+ggplot(data = mdf2, aes(x = Year, y = value, colour = variable, label = variable)) + geom_point() + geom_line(size = 1.3) + scale_color_manual(values = c("#008000", "#003366", "#b36b00","#800000",  "#330066")) + scale_x_continuous(limits = c(2000,2020)) + labs(color = "SDG 15 indicators") + theme_minimal() +labs (x = "", y = "")
+
+
 ```
 
