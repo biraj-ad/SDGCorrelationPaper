@@ -44,3 +44,19 @@ library(igraph)
 library(RColorBrewer)
 ```
 
+## FIGURE 4: Distribution of interactions between forest cover and other SDGs for Nepal and its three ecological zones for 2010. 
+
+```{r}
+fig4 = read.csv('Figure4.csv', header = TRUE, sep = ",")
+
+fig4$Region = factor(fig4$Region, levels = c("Nepal", "Mountain", "Hills", "Terai"))
+fig4$Interaction = factor(fig4$Interaction, levels = c("Unspecified", "Tradeoff", "Synergy"))
+
+ggplot(fig4, aes(fill = Interaction,y = Count, x = Region, label = Count)) + geom_bar(position = "stack", stat = "identity", alpha = 0.8) + 
+  scale_fill_manual(values = c("#ffff99" , "#fdc086", "#7fc97f")) +
+  theme(axis.text.x = element_text(size = 8)) +
+  labs(y = "Count", x = "") + 
+  geom_text(size = 3, position = position_stack(vjust = 0.5)) +
+  theme_minimal()
+```
+
