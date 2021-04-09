@@ -119,3 +119,21 @@ superheat(m_heatdat,
                     )
 ```
 
+##FIGURE 7: Proportion of synergy, tradeoff and unspecified interactions disaggregated into individual SDG 15 indicator
+```{r}
+
+alldat = read.csv('Figure7.csv', header = TRUE, sep = ",")
+
+alldat$indicator = factor(alldat$indicator, levels = c("primary_forest", "kba_freshwater", "kba_mountain", "redlist", "biodiversityaid"))
+alldat$interaction = factor(alldat$interaction, levels = c("Unspecified", "Tradeoff", "Synergy"))
+
+
+ggplot(alldat, aes(fill = interaction,y = count, x = indicator, label = scales::percent(count))) + geom_bar(position = "stack", stat = "identity", alpha = 0.8) + 
+  scale_fill_manual(values = c("#ffff99" , "#fdc086", "#7fc97f")) +
+  theme(axis.text.x = element_text(size = 8)) +
+  labs(y = "", x = "SDG 15 Indicators") + 
+  scale_y_continuous(labels = function(x) paste0(x*100, "%")) + 
+  geom_text(size = 3, position = position_stack(vjust = 0.5)) + 
+  theme_minimal()
+```
+
