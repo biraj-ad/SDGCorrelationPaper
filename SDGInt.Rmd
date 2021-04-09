@@ -1,0 +1,46 @@
+---
+title: "Interactions_AllFigs"
+author: "Biraj Adhikari"
+date: "4/9/2021"
+output: html_document
+---
+
+This is the RMD file that has codes for the entire figures I have used for the Interactions paper, arranged according to figures in the text. 
+
+## Installing Libraries:
+```{r}
+#Package names
+# Installing required packages if not installed yet
+if("statnet" %in% rownames(installed.packages())   == FALSE){
+  install.packages("ggplot2")}
+if("statnet" %in% rownames(installed.packages())   == FALSE){
+  install.packages("dplyr")}
+#for radarplot
+if("statnet" %in% rownames(installed.packages())   == FALSE){
+  install.packages("fmsb")}
+#for heatmap
+if("statnet" %in% rownames(installed.packages())   == FALSE){
+  install.packages("superheat")}
+#for combining base and ggplot together
+if("statnet" %in% rownames(installed.packages())   == FALSE){
+  install.packages("gridBase")}
+#for network
+if("statnet" %in% rownames(installed.packages())   == FALSE){
+  install.packages("igraph")}
+if("statnet" %in% rownames(installed.packages())   == FALSE){
+  install.packages("RColorBrewer")}
+
+```
+
+## Adding the libraries
+```{r}
+library(ggplot2)
+library(dplyr)
+library(fmsb) # for radarplot
+library(grid)
+library(superheat) #for heatmap
+library(gridBase) #for combining base and ggplot together
+library(igraph)
+library(RColorBrewer)
+```
+
