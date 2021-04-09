@@ -137,6 +137,83 @@ ggplot(alldat, aes(fill = interaction,y = count, x = indicator, label = scales::
   theme_minimal()
 ```
 
+##FIGURE 8: An indicator level network diagram of SDGs
+```{r}
+temp_netdat = read.csv('Figure8.csv', header = TRUE, row.names = 1, sep = ",")
+
+#creating network
+network <- graph_from_adjacency_matrix(as.matrix(temp_netdat), mode = "undirected", weighted = "interaction", diag = FALSE)
+
+#creating a png file
+png(filename = "TempNetwork.png",            
+width = 2480,        
+height = 1860,
+res = 60, 
+  )
+
+
+#giving width to edges according to their magnitudes
+E(network)$width = abs(E(network)$interaction)*6
+
+#colouring edges according to synergy or tradeoff
+E(network)$color[E(network)$interaction == 1] <- '#5ab4ac'
+E(network)$color[E(network)$interaction == -1] <- '#d8b365'
+
+#colouring nodes based on which SDG goal they belong to
+V(network)$color[1:5] <- '#e5243b' #SDG 1
+V(network)$color[6:11]<- '#dda63a' #SDG 2
+V(network)$color[12:31]<-'#4c9f38' #SDG 3
+V(network)$color[32:35]<-'#c5192d' #SDG 4
+V(network)$color[36] <- '#ff3a21'  #SDG 5
+V(network)$color[37:41]<-'#26bde2' #SDG 6
+V(network)$color[42:46]<-'#fcc30b' #SDG 7
+V(network)$color[47:50]<-'#a21942' #SDG 8
+V(network)$color[51:55]<-'#6e8255' #SDG 9
+V(network)$color[56:58]<-'#dd1367' #SDG 10
+V(network)$color[59:61]<-'#fd9d24' #SDG 11
+V(network)$color[62]<-'#bf8b2e' #SDG 12
+V(network)$color[63]<-'#3f7e44' #SDG 13
+V(network)$color[64:68]<-'#56c02b' #SDG 15
+V(network)$color[69:71]<-'#00689d' #SDG 16
+V(network)$color[72:81]<-'#19486a' #SDG 17
+
+#renaming vertices
+vname = read.csv('D:/2. GMBA/3. Exploratory Data Analysis/3. New figures 23 Sept/Network/indicator_sdg.csv', header = TRUE, sep = ",")
+V(network)$name = as.character(vname$Indicator)
+
+#greys <- brewer.pal(3, "Greys")
+#greens <- brewer.pal(3, "Greens")
+#E(network)$color[between(E(network)$interaction,-1,-0.98)] = greys[2]
+#E(network)$color[between(as.numeric(E(network)$interaction),-0.95,-0.87)] = reds[1] 
+#E(network)$color[between(as.numeric(E(network)$interaction),0.98, 1)] = greens[2]
+#E(network)$color[between(E(network)$interaction,0.86,0.94)] = greens[1]
+
+
+
+#providing a vector to scale the size of the vertices
+V(network)$eigenv <- eigen_centrality(network, weights = as.numeric(abs(E(network)$interaction)))$vector #the size of the vertices will be determined by the eigenvector centrality
+
+#removing nodes whose eigenvector centrality is less than 0.1
+#network = delete_vertices(network, V(network)[V(network)$eigenv < 0.1])
+
+#margins
+par(mar = c(1,1,1,1))
+
+
+#plotting the network
+plot(network,
+    
+     vertex.size = (V(network)$eigenv+0.8)^4,
+     vertex.label.cex = 2.5, #size of the labels
+     vertex.label.color = 'black',
+    #vertex.label.dist = -1.7, #spacing between label and vertices
+     vertex.label.font = 2, #making the label bold
+      edge.curved = 0.2,
+     layout = layout.circle
+)
+```
+
+
 ##FIGURE 9: Network diagram for interactions between SDG 15 indicators and the other SDGs
 ```{r}
 temp_net2 = read.csv('Figure9.csv', header = TRUE, row.names = 1, sep = ",")
