@@ -82,3 +82,40 @@ ggplot(data = mdf2, aes(x = Year, y = value, colour = variable, label = variable
 
 ```
 
+##FIGURE 6: Heat map of correlations between SDG 15 indicators and other SDG indicators showed that forest cover interacted negatively with many indicators
+```{r}
+heatdat = read.csv('Figure6.csv', header = TRUE, sep = ",")
+#saving the row names
+rnames <- heatdat[,1]
+
+#converting the data to matrix format (except the first column which is the name of row)
+m_heatdat = data.matrix(heatdat[,2:ncol(heatdat)])
+
+#assigning rownames from rnames variable
+rownames(m_heatdat) = rnames
+
+
+#making a png file
+png(filename = "heatmaps_correlation.png",            
+  width = 1200,        
+  height = 4000,
+  res = 96,  
+  
+  ) 
+
+
+#plotting the heatmap
+superheat(m_heatdat, 
+          left.label.text.size = 10, left.label.size = 0.2, 
+          bottom.label.text.size = 10, bottom.label.size = 0.12, bottom.label.text.angle = 90,
+          heat.pal = c("#d7191c", "#ffffbf","#1a9641"),
+          title = "Correlation heatmap", title.size = 4, title.alignment = "center",
+          row.title = "Other SDG targets", row.title.size =14,
+          column.title = "SDG 15 targets", column.title.size = 14,
+          grid.hline.col = "white",
+          grid.vline.col = "White",
+          grid.vline.size = 0.5,
+          grid.hline.size = 1
+                    )
+```
+
