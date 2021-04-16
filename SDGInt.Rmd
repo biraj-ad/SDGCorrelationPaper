@@ -31,6 +31,8 @@ if("statnet" %in% rownames(installed.packages())   == FALSE){
   install.packages("RColorBrewer")}
 if("statnet" %in% rownames(installed.packages())   == FALSE){
   install.packages("reshape2")}
+if("ggpubr" %in% rownames(installed.packages())   == FALSE){
+  install.packages("ggpubr")}
 
 ```
 
@@ -45,6 +47,7 @@ library(gridBase) #for combining base and ggplot together
 library(igraph)
 library(RColorBrewer)
 library(reshape2) #for figure 5
+library(ggpubr) #for ggarrange (to combine multiple figures together)
 ```
 
 ## FIGURE 4: Distribution of interactions between forest cover and other SDGs for Nepal and its three ecological zones for 2010. 
@@ -136,6 +139,13 @@ ggplot(alldat, aes(fill = interaction,y = count, x = indicator, label = scales::
   geom_text(size = 3, position = position_stack(vjust = 0.5)) + 
   theme_minimal()
 ```
+
+##Combining figures 4, 5 and 7 together
+```{r}
+
+```
+
+
 
 ##FIGURE 8: An indicator level network diagram of SDGs
 ```{r}
