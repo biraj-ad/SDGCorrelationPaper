@@ -58,12 +58,21 @@ fig4 = read.csv('Figure4.csv', header = TRUE, sep = ",")
 fig4$Region = factor(fig4$Region, levels = c("Nepal", "Mountain", "Hills", "Terai"))
 fig4$Interaction = factor(fig4$Interaction, levels = c("Unspecified", "Tradeoff", "Synergy"))
 
-ggplot(fig4, aes(fill = Interaction,y = Count, x = Region, label = Count)) + geom_bar(position = "stack", stat = "identity", alpha = 0.8) + 
+panel_fig4 = ggplot(fig4, aes(fill = Interaction,y = percent, x = Region, label = scales::percent(percent))) + geom_bar(position = "stack", stat = "identity") + 
   scale_fill_manual(values = c("#ffff99" , "#fdc086", "#7fc97f")) +
   theme(axis.text.x = element_text(size = 8)) +
-  labs(y = "Count", x = "") + 
+  scale_y_continuous(labels = function(x) paste0(x*100, "%")) + 
+  labs(title = "(b) Proportion of interactions between forest cover and other\nSDGs disaggregated by ecozones", y = "", x = "") + 
   geom_text(size = 3, position = position_stack(vjust = 0.5)) +
-  theme_minimal()
+  theme(plot.title = element_text(size = 12),
+        axis.text.x = element_text(size = 11),
+        axis.text.y = element_text(size = 11),
+        legend.text = element_text(size = 12),
+        legend.title = element_blank(),
+        panel.background = element_rect(fill = "white"))
+  
+
+panel_fig4
 ```
 
 ##FIGURE 5: Standardized Time-series graph of SDG 15 Indicators
@@ -80,8 +89,16 @@ mdf = reshape2::melt(alldat.z, id.var = "Year")
 target1 = c("primary_forest", "kba_freshwater", "kba_mountain", "redlist", "biodiversityaid" )
 mdf2 = filter(mdf, variable %in% target1)
 
-ggplot(data = mdf2, aes(x = Year, y = value, colour = variable, label = variable)) + geom_point() + geom_line(size = 1.3) + scale_color_manual(values = c("#008000", "#003366", "#b36b00","#800000",  "#330066")) + scale_x_continuous(limits = c(2000,2020)) + labs(color = "SDG 15 indicators") + theme_minimal() +labs (x = "", y = "")
+panel_fig5 = ggplot(data = mdf2, aes(x = Year, y = value, colour = variable, label = variable)) + geom_point() + geom_line(size = 1.3) + scale_color_manual(values = c("#008000", "#003366", "#b36b00","#800000",  "#330066")) + scale_x_continuous(limits = c(2000,2020)) + labs(color = "SDG 15 indicators") + 
+  
+  labs (x = "", y = "", title = "(a) Standardized time-series graph of SDG 15 indicators") +
+ theme(plot.title = element_text(size = 12),
+       axis.text.x = element_text(size = 11),
+       legend.text = element_text(size = 12),
+        
+      panel.background = element_rect(fill = "white"), axis.text.y = element_blank())
 
+panel_fig5
 
 ```
 
@@ -131,18 +148,27 @@ alldat$indicator = factor(alldat$indicator, levels = c("primary_forest", "kba_fr
 alldat$interaction = factor(alldat$interaction, levels = c("Unspecified", "Tradeoff", "Synergy"))
 
 
-ggplot(alldat, aes(fill = interaction,y = count, x = indicator, label = scales::percent(count))) + geom_bar(position = "stack", stat = "identity", alpha = 0.8) + 
+panel_fig7 = ggplot(alldat, aes(fill = interaction,y = count, x = indicator, label = scales::percent(count))) + geom_bar(position = "stack", stat = "identity") + 
   scale_fill_manual(values = c("#ffff99" , "#fdc086", "#7fc97f")) +
   theme(axis.text.x = element_text(size = 8)) +
-  labs(y = "", x = "SDG 15 Indicators") + 
+  labs(y = "", x = "", title = "(c) Proportion of interactions between SDG 15 indicators and other\nSDGs") + 
   scale_y_continuous(labels = function(x) paste0(x*100, "%")) + 
   geom_text(size = 3, position = position_stack(vjust = 0.5)) + 
-  theme_minimal()
+ 
+   theme(plot.title = element_text(size = 12),
+         axis.text.x = element_text(size = 11),
+        axis.text.y = element_text(size = 11),
+        legend.text = element_text(size = 12),
+        legend.title = element_blank(),
+      panel.background = element_rect(fill = "white"))
+  
+panel_fig7
 ```
 
 ##Combining figures 4, 5 and 7 together
 ```{r}
-
+combined = ggarrange(panel_fig5, ggarrange(panel_fig4, panel_fig7, nrow = 1, ncol = 2, common.legend = TRUE, legend  = "bottom"), nrow = 2, ncol = 1)
+combined
 ```
 
 
