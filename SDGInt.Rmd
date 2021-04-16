@@ -50,7 +50,7 @@ library(reshape2) #for figure 5
 library(ggpubr) #for ggarrange (to combine multiple figures together)
 ```
 
-## FIGURE 4: Distribution of interactions between forest cover and other SDGs for Nepal and its three ecological zones for 2010. 
+## FIGURE 4b: Distribution of interactions between forest cover and other SDGs for Nepal and its three ecological zones for 2010. 
 
 ```{r}
 fig4 = read.csv('Figure4.csv', header = TRUE, sep = ",")
@@ -75,7 +75,7 @@ panel_fig4 = ggplot(fig4, aes(fill = Interaction,y = percent, x = Region, label 
 panel_fig4
 ```
 
-##FIGURE 5: Standardized Time-series graph of SDG 15 Indicators
+##FIGURE 4a: Standardized Time-series graph of SDG 15 Indicators
 ```{r}
 alldat = read.csv('Figure5.csv', header = TRUE, sep = ",")
 
@@ -102,7 +102,7 @@ panel_fig5
 
 ```
 
-##FIGURE 6: Heat map of correlations between SDG 15 indicators and other SDG indicators showed that forest cover interacted negatively with many indicators
+##FIGURE S1: Heat map of correlations between SDG 15 indicators and other SDG indicators showed that forest cover interacted negatively with many indicators
 ```{r}
 heatdat = read.csv('Figure6.csv', header = TRUE, sep = ",")
 #saving the row names
@@ -139,7 +139,7 @@ superheat(m_heatdat,
                     )
 ```
 
-##FIGURE 7: Proportion of synergy, tradeoff and unspecified interactions disaggregated into individual SDG 15 indicator
+##FIGURE 4c: Proportion of synergy, tradeoff and unspecified interactions disaggregated into individual SDG 15 indicator
 ```{r}
 
 alldat = read.csv('Figure7.csv', header = TRUE, sep = ",")
@@ -165,7 +165,7 @@ panel_fig7 = ggplot(alldat, aes(fill = interaction,y = count, x = indicator, lab
 panel_fig7
 ```
 
-##Combining figures 4, 5 and 7 together
+##Combining figures 4, 5 and 7 together: Figure 4
 ```{r}
 combined = ggarrange(panel_fig5, ggarrange(panel_fig4, panel_fig7, nrow = 1, ncol = 2, common.legend = TRUE, legend  = "bottom"), nrow = 2, ncol = 1)
 combined
@@ -173,7 +173,7 @@ combined
 
 
 
-##FIGURE 8: An indicator level network diagram of SDGs
+##FIGURE 5: An indicator level network diagram of SDGs
 ```{r}
 temp_netdat = read.csv('Figure8.csv', header = TRUE, row.names = 1, sep = ",")
 
@@ -250,7 +250,7 @@ plot(network,
 ```
 
 
-##FIGURE 9: Network diagram for interactions between SDG 15 indicators and the other SDGs
+##FIGURE 6: Network diagram for interactions between SDG 15 indicators and the other SDGs
 ```{r}
 temp_net2 = read.csv('Figure9.csv', header = TRUE, row.names = 1, sep = ",")
 
