@@ -173,7 +173,7 @@ panel_fig7
 
 ggarrange(panel_fig5, ggarrange(panel_fig4, panel_fig7, nrow = 1, ncol = 2, common.legend = TRUE, legend  = "bottom"), nrow = 2, ncol = 1)
 
-ggsave("Panel_fig4.png", dpi = 600, height = 200 , width = 280, units = "mm")
+ggsave("Panel_fig4.png", dpi = 300, height = 200 , width = 280, units = "mm")
 
 ```
 
