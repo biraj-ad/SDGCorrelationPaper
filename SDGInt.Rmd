@@ -11,6 +11,9 @@ This is the RMD file that has codes for the entire figures I have used for the I
 ```{r}
 #Package names
 # Installing required packages if not installed yet
+if("devtools" %in% rownames(installed.packages())   == FALSE){
+  install.packages("devtools")}
+library(devtools)
 if("statnet" %in% rownames(installed.packages())   == FALSE){
   install.packages("ggplot2")}
 if("statnet" %in% rownames(installed.packages())   == FALSE){
@@ -19,8 +22,7 @@ if("statnet" %in% rownames(installed.packages())   == FALSE){
 if("statnet" %in% rownames(installed.packages())   == FALSE){
   install.packages("fmsb")}
 #for heatmap
-if("statnet" %in% rownames(installed.packages())   == FALSE){
-  install.packages("superheat")}
+devtools::install_github("rlbarter/superheat")
 #for combining base and ggplot together
 if("statnet" %in% rownames(installed.packages())   == FALSE){
   install.packages("gridBase")}
@@ -117,25 +119,26 @@ rownames(m_heatdat) = rnames
 
 #making a png file
 png(filename = "heatmaps_correlation.png",            
-  width = 1200,        
-  height = 4000,
-  res = 96,  
+  width = 1500,        
+  height = 3000,
+  res = 300,  
   
   ) 
 
 
 #plotting the heatmap
 superheat(m_heatdat, 
-          left.label.text.size = 10, left.label.size = 0.2, 
-          bottom.label.text.size = 10, bottom.label.size = 0.12, bottom.label.text.angle = 90,
+          left.label.text.size = 2.5, left.label.size = 0.2, 
+          bottom.label.text.size = 3, bottom.label.size = 0.12, bottom.label.text.angle = 90,
           heat.pal = c("#d7191c", "#ffffbf","#1a9641"),
           title = "Correlation heatmap", title.size = 4, title.alignment = "center",
-          row.title = "Other SDG targets", row.title.size =14,
-          column.title = "SDG 15 targets", column.title.size = 14,
+          row.title = "Other SDG targets", row.title.size =7,
+          column.title = "SDG 15 targets", column.title.size = 7,
           grid.hline.col = "white",
           grid.vline.col = "White",
           grid.vline.size = 0.5,
-          grid.hline.size = 1
+          grid.hline.size = 1,
+          legend.vspace = 0.05
                     )
 ```
 
