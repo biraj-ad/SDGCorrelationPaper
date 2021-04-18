@@ -267,7 +267,7 @@ network2 <- graph_from_incidence_matrix(as.matrix(temp_net2), weighted = "intera
 
 #creating a png file
 png(filename = "TempNetwork2.png",            
-width = 1600,        
+width = 1200,        
 height = 1200,
 res = 300, 
   )
@@ -336,7 +336,7 @@ plot(network2,
      edge.curved = 0.1,
      vertex.label.degree = angle,
      layout = layout.circle,
-     vertex.frame.color = "white"
+     vertex.frame.color = V(network2)$color
 )
 ```
 
