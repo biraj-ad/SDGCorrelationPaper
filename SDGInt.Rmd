@@ -52,7 +52,121 @@ library(reshape2) #for figure 5
 library(ggpubr) #for ggarrange (to combine multiple figures together)
 ```
 ## FIGURE 3: Plots for Radar Diagrams:
-#Figure3a- Radarplot Mountain
+
+```{r}
+#MOUNTAIN
+rad_m = read.csv('Radar_mountain.csv', header = TRUE, sep = ",")
+
+#adding row names
+rownames(rad_m) = "Mountain"
+
+#adding maximum and minimum
+rad_m = rbind(rep(1,17), rep(-1,17), rad_m)
+
+#HILL
+rad_h = read.csv('Radar_hill.csv', header = TRUE, sep = ",")
+
+#adding row names
+rownames(rad_h) = "Hills"
+
+#adding maximum and minimum
+rad_h = rbind(rep(1,17), rep(-1,17), rad_h)
+
+#TERAI
+rad_t = read.csv('Radar_terai.csv', header = TRUE, sep = ",")
+
+
+#adding row names
+rownames(rad_t) = "Terai"
+
+#adding maximum and minimum
+rad_t = rbind(rep(1,17), rep(-1,17), rad_t)
+
+#NEPAL
+rad_n = read.csv('Radar_nepal.csv', header = TRUE, sep = ",")
+
+#adding row names
+rownames(rad_n) = "Nepal"
+
+#adding maximum and minimum
+rad_n = rbind(rep(1,17), rep(-1,17), rad_n)
+
+par(oma=c(0.1,0.1,0.1,0.1))
+#saving to png
+png(filename = "radar_nepal.png",            
+ width = 1400,        
+  height = 1400,
+  res = 300,  
+  )
+
+#Arranging rows and columns
+par(mfrow=c(2,2))
+
+#Making the plots
+#MOUNTAIN
+par(mar = c(0.5, 0.5, 0.5, 0.5))
+radarchart(rad_m, 
+           #defining the axis
+           axistype = 1, seg = 2,caxislabels=c("Negative",0,"Positive"),axislabcol="black",
+           
+           #defining plot type
+           plwd = 1,plty = 1,pcol = rgb(255, 217, 47, 150,maxColorValue = 255), pfcol = rgb(255, 217, 47, 75,maxColorValue = 255),
+           
+           #defining font sizes
+           vlcex = 0.5, calcex = 0.6,
+           
+           #defining the net
+           cglcol = "grey",cglty=1,   cglwd=2,
+           )
+#HILL
+ radarchart(rad_h, 
+           #defining the axis
+           axistype = 1, seg = 2,caxislabels=c("Negative",0,"Positive"),axislabcol="black",
+           
+           #defining plot type
+           plwd = 2.5,plty = 1,pcol = rgb(141, 160, 203, 150,maxColorValue = 255), pfcol = rgb(141, 160, 203, 75,maxColorValue = 255),
+           
+           #defining font sizes
+           vlcex = 0.7, calcex = 0.8,
+           
+           #defining the net
+           cglcol = "grey",cglty=1,   cglwd=2,
+           )
+ 
+#TERAI
+radarchart(rad_t, 
+           #defining the axis
+           axistype = 1, seg = 2,caxislabels=c("Negative",0,"Positive"),axislabcol="black",
+           
+           #defining plot type
+           plwd = 2.5,plty = 1,pcol = rgb(252, 141, 98, 150, maxColorValue = 255), pfcol = rgb(252, 141, 98, 75, maxColorValue = 255),
+           
+           #defining font sizes
+           vlcex = 0.7, calcex = 0.8,
+           
+           #defining the net
+           cglcol = "grey",cglty=1,   cglwd=2
+)
+#NEPAL
+radarchart(rad_n, 
+           #defining the axis
+           axistype = 1, seg = 2,caxislabels=c("Negative",0,"Positive"),axislabcol="black",
+           
+           #defining plot type
+           plwd = 2.5,plty = 1,pcol = rgb(128, 0, 0, 150, maxColorValue = 255), pfcol = rgb(128, 0, 0, 75, maxColorValue = 255),
+           
+           #defining font sizes
+           vlcex = 0.7, calcex = 0.8,
+           
+           #defining the net
+           cglcol = "grey",cglty=1,   cglwd=2
+)
+
+dev.off()
+
+```
+
+
 ```{r}
 rad_m = read.csv('Radar_mountain.csv', header = TRUE, sep = ",")
 
@@ -62,7 +176,7 @@ rownames(rad_m) = "Mountain"
 #adding maximum and minimum
 rad_m = rbind(rep(1,17), rep(-1,17), rad_m)
 
-m_rad_fig = radarchart(rad_m, 
+radarchart(rad_m, 
            #defining the axis
            axistype = 1, seg = 2,caxislabels=c("Negative",0,"Positive"),axislabcol="black",
            
@@ -77,7 +191,6 @@ m_rad_fig = radarchart(rad_m,
            
                                  )
 
-m_rad_fig
 ```
 
 #For Hill
@@ -164,7 +277,9 @@ n_rad_fig = radarchart(rad_n,
 n_rad_fig
 ```
 #Figure 3: Combining all figures (Radarplot)
-
+```{r}
+ggarrange(m_rad_fig, h_rad_fig, t_rad_fig, n_rad_fig, nrow = 2, ncol = 2)
+```
 
 
 ## FIGURE 4b: Distribution of interactions between forest cover and other SDGs for Nepal and its three ecological zones for 2010. 
