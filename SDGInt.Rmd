@@ -51,7 +51,7 @@ library(RColorBrewer)
 library(reshape2) #for figure 5
 library(ggpubr) #for ggarrange (to combine multiple figures together)
 ```
-## FIGURE 3: Plots for Radar Diagrams:
+## FIGURE 3: Plots for Radar Diagrams: Setting up
 
 ```{r}
 #MOUNTAIN
@@ -90,11 +90,13 @@ rownames(rad_n) = "Nepal"
 
 #adding maximum and minimum
 rad_n = rbind(rep(1,17), rep(-1,17), rad_n)
+```
+## Making Figure 3
 
-par(oma=c(0.1,0.1,0.1,0.1))
+```{r}
 #saving to png
 png(filename = "radar_nepal.png",            
- width = 1400,        
+ width = 1600,        
   height = 1400,
   res = 300,  
   )
@@ -104,7 +106,7 @@ par(mfrow=c(2,2))
 
 #Making the plots
 #MOUNTAIN
-par(mar = c(0.5, 0.5, 0.5, 0.5))
+par(mar = c(0.5, 0.5, 1.5, 0.5))
 radarchart(rad_m, 
            #defining the axis
            axistype = 1, seg = 2,caxislabels=c("Negative",0,"Positive"),axislabcol="black",
@@ -117,21 +119,22 @@ radarchart(rad_m,
            
            #defining the net
            cglcol = "grey",cglty=1,   cglwd=2,
-           )
+           title = "Mountain", cex.main = 0.8)
+
 #HILL
  radarchart(rad_h, 
            #defining the axis
            axistype = 1, seg = 2,caxislabels=c("Negative",0,"Positive"),axislabcol="black",
            
            #defining plot type
-           plwd = 2.5,plty = 1,pcol = rgb(141, 160, 203, 150,maxColorValue = 255), pfcol = rgb(141, 160, 203, 75,maxColorValue = 255),
+           plwd = 1,plty = 1,pcol = rgb(141, 160, 203, 150,maxColorValue = 255), pfcol = rgb(141, 160, 203, 75,maxColorValue = 255),
            
            #defining font sizes
-           vlcex = 0.7, calcex = 0.8,
+           vlcex = 0.5, calcex = 0.6,
            
            #defining the net
            cglcol = "grey",cglty=1,   cglwd=2,
-           )
+           title = "Hill", cex.main = 0.8)
  
 #TERAI
 radarchart(rad_t, 
@@ -139,148 +142,32 @@ radarchart(rad_t,
            axistype = 1, seg = 2,caxislabels=c("Negative",0,"Positive"),axislabcol="black",
            
            #defining plot type
-           plwd = 2.5,plty = 1,pcol = rgb(252, 141, 98, 150, maxColorValue = 255), pfcol = rgb(252, 141, 98, 75, maxColorValue = 255),
+           plwd = 1,plty = 1,pcol = rgb(252, 141, 98, 150, maxColorValue = 255), pfcol = rgb(252, 141, 98, 75, maxColorValue = 255),
            
            #defining font sizes
-           vlcex = 0.7, calcex = 0.8,
+           vlcex = 0.5, calcex = 0.6,
            
            #defining the net
-           cglcol = "grey",cglty=1,   cglwd=2
-)
+           cglcol = "grey",cglty=1,   cglwd=2,
+           title = "Terai", cex.main = 0.8)
 #NEPAL
 radarchart(rad_n, 
            #defining the axis
            axistype = 1, seg = 2,caxislabels=c("Negative",0,"Positive"),axislabcol="black",
            
            #defining plot type
-           plwd = 2.5,plty = 1,pcol = rgb(128, 0, 0, 150, maxColorValue = 255), pfcol = rgb(128, 0, 0, 75, maxColorValue = 255),
+           plwd = 1,plty = 1,pcol = rgb(128, 0, 0, 150, maxColorValue = 255), pfcol = rgb(128, 0, 0, 75, maxColorValue = 255),
            
            #defining font sizes
-           vlcex = 0.7, calcex = 0.8,
+           vlcex = 0.5, calcex = 0.6,
            
            #defining the net
-           cglcol = "grey",cglty=1,   cglwd=2
-)
+           cglcol = "grey",cglty=1,   cglwd=2,
+           title = "Nepal", cex.main = 0.8)
 
 dev.off()
 
 ```
-
-
-```{r}
-rad_m = read.csv('Radar_mountain.csv', header = TRUE, sep = ",")
-
-#adding row names
-rownames(rad_m) = "Mountain"
-
-#adding maximum and minimum
-rad_m = rbind(rep(1,17), rep(-1,17), rad_m)
-
-radarchart(rad_m, 
-           #defining the axis
-           axistype = 1, seg = 2,caxislabels=c("Negative",0,"Positive"),axislabcol="black",
-           
-           #defining plot type
-           plwd = 2.5,plty = 1,pcol = rgb(255, 217, 47, 150,maxColorValue = 255), pfcol = rgb(255, 217, 47, 75,maxColorValue = 255),
-           
-           #defining font sizes
-           vlcex = 0.7, calcex = 0.8,
-           
-           #defining the net
-           cglcol = "grey",cglty=1,   cglwd=2,
-           
-                                 )
-
-```
-
-#For Hill
-```{r}
-rad_h = read.csv('Radar_hill.csv', header = TRUE, sep = ",")
-
-#adding row names
-rownames(rad_h) = "Hills"
-
-#adding maximum and minimum
-rad_h = rbind(rep(1,17), rep(-1,17), rad_h)
-
-h_rad_fig = radarchart(rad_h, 
-           #defining the axis
-           axistype = 1, seg = 2,caxislabels=c("Negative",0,"Positive"),axislabcol="black",
-           
-           #defining plot type
-           plwd = 2.5,plty = 1,pcol = rgb(141, 160, 203, 150,maxColorValue = 255), pfcol = rgb(141, 160, 203, 75,maxColorValue = 255),
-           
-           #defining font sizes
-           vlcex = 0.7, calcex = 0.8,
-           
-           #defining the net
-           cglcol = "grey",cglty=1,   cglwd=2,
-           
-                                 )
-h_rad_fig
-
-```
-
-#For Terai
-```{r}
-rad_t = read.csv('Radar_terai.csv', header = TRUE, sep = ",")
-
-
-#adding row names
-rownames(rad_t) = "Terai"
-
-#adding maximum and minimum
-rad_t = rbind(rep(1,17), rep(-1,17), rad_t)
-
-
-
-t_rad_fig = radarchart(rad_t, 
-           #defining the axis
-           axistype = 1, seg = 2,caxislabels=c("Negative",0,"Positive"),axislabcol="black",
-           
-           #defining plot type
-           plwd = 2.5,plty = 1,pcol = rgb(252, 141, 98, 150, maxColorValue = 255), pfcol = rgb(252, 141, 98, 75, maxColorValue = 255),
-           
-           #defining font sizes
-           vlcex = 0.7, calcex = 0.8,
-           
-           #defining the net
-           cglcol = "grey",cglty=1,   cglwd=2
-)
-t_rad_fig
-
-```
-#Nepal Radar figure
-```{r}
-rad_n = read.csv('Radar_nepal.csv', header = TRUE, sep = ",")
-
-#adding row names
-rownames(rad_n) = "Nepal"
-
-#adding maximum and minimum
-rad_n = rbind(rep(1,17), rep(-1,17), rad_n)
-
-
-n_rad_fig = radarchart(rad_n, 
-           #defining the axis
-           axistype = 1, seg = 2,caxislabels=c("Negative",0,"Positive"),axislabcol="black",
-           
-           #defining plot type
-           plwd = 2.5,plty = 1,pcol = rgb(128, 0, 0, 150, maxColorValue = 255), pfcol = rgb(128, 0, 0, 75, maxColorValue = 255),
-           
-           #defining font sizes
-           vlcex = 0.7, calcex = 0.8,
-           
-           #defining the net
-           cglcol = "grey",cglty=1,   cglwd=2
-)
-n_rad_fig
-```
-#Figure 3: Combining all figures (Radarplot)
-```{r}
-ggarrange(m_rad_fig, h_rad_fig, t_rad_fig, n_rad_fig, nrow = 2, ncol = 2)
-```
-
 
 ## FIGURE 4b: Distribution of interactions between forest cover and other SDGs for Nepal and its three ecological zones for 2010. 
 
@@ -418,7 +305,7 @@ network <- graph_from_adjacency_matrix(as.matrix(temp_netdat), mode = "undirecte
 
 #creating a png file
 png(filename = "TempNetwork.png",            
-width = 2480,        
+width = 2100,        
 height = 1860,
 res = 300, 
  )
@@ -450,7 +337,7 @@ V(network)$color[69:71]<-'#00689d' #SDG 16
 V(network)$color[72:81]<-'#19486a' #SDG 17
 
 #renaming vertices
-vname = read.csv('D:/2. GMBA/3. Exploratory Data Analysis/3. New figures 23 Sept/Network/indicator_sdg.csv', header = TRUE, sep = ",")
+vname = read.csv('indicator_sdg.csv', header = TRUE, sep = ",")
 V(network)$name = as.character(vname$Indicator)
 
 #greys <- brewer.pal(3, "Greys")
@@ -471,17 +358,18 @@ network = delete_vertices(network, V(network)[V(network)$eigenv < 0.1])
 #margins
 par(mar = c(1,1,1,1))
 
-
 #plotting the network
 x = plot(network,
     
      vertex.size = (V(network)$eigenv+0.8)^4,
-     vertex.label.cex = 0.7, #size of the labels
+     vertex.label.cex = 0.5, #size of the labels
      vertex.label.color = 'black',
     #vertex.label.dist = -1.7, #spacing between label and vertices
      vertex.label.font = 1, #making the label bold
       edge.curved = 0.2,
-     layout = layout.circle
+     layout = layout.circle,
+    
+    
 )
 
 
