@@ -51,6 +51,121 @@ library(RColorBrewer)
 library(reshape2) #for figure 5
 library(ggpubr) #for ggarrange (to combine multiple figures together)
 ```
+## FIGURE 3: Plots for Radar Diagrams:
+#Figure3a- Radarplot Mountain
+```{r}
+rad_m = read.csv('Radar_mountain.csv', header = TRUE, sep = ",")
+
+#adding row names
+rownames(rad_m) = "Mountain"
+
+#adding maximum and minimum
+rad_m = rbind(rep(1,17), rep(-1,17), rad_m)
+
+m_rad_fig = radarchart(rad_m, 
+           #defining the axis
+           axistype = 1, seg = 2,caxislabels=c("Negative",0,"Positive"),axislabcol="black",
+           
+           #defining plot type
+           plwd = 2.5,plty = 1,pcol = rgb(255, 217, 47, 150,maxColorValue = 255), pfcol = rgb(255, 217, 47, 75,maxColorValue = 255),
+           
+           #defining font sizes
+           vlcex = 0.7, calcex = 0.8,
+           
+           #defining the net
+           cglcol = "grey",cglty=1,   cglwd=2,
+           
+                                 )
+
+m_rad_fig
+```
+
+#For Hill
+```{r}
+rad_h = read.csv('Radar_hill.csv', header = TRUE, sep = ",")
+
+#adding row names
+rownames(rad_h) = "Hills"
+
+#adding maximum and minimum
+rad_h = rbind(rep(1,17), rep(-1,17), rad_h)
+
+h_rad_fig = radarchart(rad_h, 
+           #defining the axis
+           axistype = 1, seg = 2,caxislabels=c("Negative",0,"Positive"),axislabcol="black",
+           
+           #defining plot type
+           plwd = 2.5,plty = 1,pcol = rgb(141, 160, 203, 150,maxColorValue = 255), pfcol = rgb(141, 160, 203, 75,maxColorValue = 255),
+           
+           #defining font sizes
+           vlcex = 0.7, calcex = 0.8,
+           
+           #defining the net
+           cglcol = "grey",cglty=1,   cglwd=2,
+           
+                                 )
+h_rad_fig
+
+```
+
+#For Terai
+```{r}
+rad_t = read.csv('Radar_terai.csv', header = TRUE, sep = ",")
+
+
+#adding row names
+rownames(rad_t) = "Terai"
+
+#adding maximum and minimum
+rad_t = rbind(rep(1,17), rep(-1,17), rad_t)
+
+
+
+t_rad_fig = radarchart(rad_t, 
+           #defining the axis
+           axistype = 1, seg = 2,caxislabels=c("Negative",0,"Positive"),axislabcol="black",
+           
+           #defining plot type
+           plwd = 2.5,plty = 1,pcol = rgb(252, 141, 98, 150, maxColorValue = 255), pfcol = rgb(252, 141, 98, 75, maxColorValue = 255),
+           
+           #defining font sizes
+           vlcex = 0.7, calcex = 0.8,
+           
+           #defining the net
+           cglcol = "grey",cglty=1,   cglwd=2
+)
+t_rad_fig
+
+```
+#Nepal Radar figure
+```{r}
+rad_n = read.csv('Radar_nepal.csv', header = TRUE, sep = ",")
+
+#adding row names
+rownames(rad_n) = "Nepal"
+
+#adding maximum and minimum
+rad_n = rbind(rep(1,17), rep(-1,17), rad_n)
+
+
+n_rad_fig = radarchart(rad_n, 
+           #defining the axis
+           axistype = 1, seg = 2,caxislabels=c("Negative",0,"Positive"),axislabcol="black",
+           
+           #defining plot type
+           plwd = 2.5,plty = 1,pcol = rgb(128, 0, 0, 150, maxColorValue = 255), pfcol = rgb(128, 0, 0, 75, maxColorValue = 255),
+           
+           #defining font sizes
+           vlcex = 0.7, calcex = 0.8,
+           
+           #defining the net
+           cglcol = "grey",cglty=1,   cglwd=2
+)
+n_rad_fig
+```
+#Figure 3: Combining all figures (Radarplot)
+
+
 
 ## FIGURE 4b: Distribution of interactions between forest cover and other SDGs for Nepal and its three ecological zones for 2010. 
 
