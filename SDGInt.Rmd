@@ -179,14 +179,13 @@ fig4$Interaction = factor(fig4$Interaction, levels = c("Unspecified", "Tradeoff"
 
 panel_fig4 = ggplot(fig4, aes(fill = Interaction,y = percent, x = Region, label = scales::percent(percent))) + geom_bar(position = "stack", stat = "identity") + 
   scale_fill_manual(values = c("#ffff99" , "#fdc086", "#7fc97f")) +
-  theme(axis.text.x = element_text(size = 8)) +
   scale_y_continuous(labels = function(x) paste0(x*100, "%")) + 
-  labs(title = "(b) Proportion of interactions between forest cover and other\nSDGs disaggregated by ecozones", y = "", x = "") + 
-  geom_text(size = 3, position = position_stack(vjust = 0.5)) +
-  theme(plot.title = element_text(size = 12),
-        axis.text.x = element_text(size = 11),
-        axis.text.y = element_text(size = 11),
-        legend.text = element_text(size = 12),
+  labs(title = "(b) Proportion of interactions between forest\ncover and other SDGs by ecozones", y = "", x = "") + 
+  geom_text(size = 2.2, position = position_stack(vjust = 0.5)) +
+  theme(plot.title = element_text(size = 9),
+        axis.text.x = element_text(size = 8),
+        axis.text.y = element_text(size = 8),
+        legend.text = element_text(size = 8),
         legend.title = element_blank(),
         panel.background = element_rect(fill = "white"))
   
@@ -208,12 +207,13 @@ mdf = reshape2::melt(alldat.z, id.var = "Year")
 target1 = c("pr_forest", "kba_f", "kba_m", "redlist", "bio_aid" )
 mdf2 = filter(mdf, variable %in% target1)
 
-panel_fig5 = ggplot(data = mdf2, aes(x = Year, y = value, colour = variable, label = variable)) + geom_point() + geom_line(size = 1.3) + scale_color_manual(values = c("#008000", "#003366", "#b36b00","#800000",  "#330066")) + scale_x_continuous(limits = c(2000,2020)) + labs(color = "SDG 15 indicators") + 
+panel_fig5 = ggplot(data = mdf2, aes(x = Year, y = value, colour = variable, label = variable)) + geom_point(size = 1) + geom_line(size = 0.8) + scale_color_manual(values = c("#008000", "#003366", "#b36b00","#800000",  "#330066")) + scale_x_continuous(limits = c(2000,2020)) + labs(color = "SDG 15 indicators") + 
   
   labs (x = "", y = "", title = "(a) Standardized time-series graph of SDG 15 indicators") +
- theme(plot.title = element_text(size = 12),
-       axis.text.x = element_text(size = 11),
-       legend.text = element_text(size = 12),
+ theme(plot.title = element_text(size = 9),
+       axis.text.x = element_text(size = 8),
+       legend.title = element_text(size = 8),
+       legend.text = element_text(size = 8),
         
       panel.background = element_rect(fill = "white"), axis.text.y = element_blank())
 
@@ -248,14 +248,13 @@ superheat(m_heatdat,
           left.label.text.size = 2.5, left.label.size = 0.2, 
           bottom.label.text.size = 3, bottom.label.size = 0.12, bottom.label.text.angle = 90,
           heat.pal = c("#d7191c", "#ffffbf","#1a9641"),
-          title = "Correlation heatmap", title.size = 4, title.alignment = "center",
           row.title = "Other SDG targets", row.title.size =7,
           column.title = "SDG 15 targets", column.title.size = 7,
           grid.hline.col = "white",
           grid.vline.col = "White",
           grid.vline.size = 0.5,
           grid.hline.size = 1,
-          legend.vspace = 0.05
+          legend.vspace = 0.01
                     )
 ```
 
@@ -270,15 +269,14 @@ alldat$interaction = factor(alldat$interaction, levels = c("Unspecified", "Trade
 
 panel_fig7 = ggplot(alldat, aes(fill = interaction,y = count, x = indicator, label = scales::percent(count))) + geom_bar(position = "stack", stat = "identity") + 
   scale_fill_manual(values = c("#ffff99" , "#fdc086", "#7fc97f")) +
-  theme(axis.text.x = element_text(size = 8)) +
-  labs(y = "", x = "", title = "(c) Proportion of interactions between SDG 15 indicators and\nother SDGs") + 
+    labs(y = "", x = "", title = "(c) Proportion of interactions between SDG 15\nindicators and other SDGs") + 
   scale_y_continuous(labels = function(x) paste0(x*100, "%")) + 
-  geom_text(size = 3, position = position_stack(vjust = 0.5)) + 
+  geom_text(size = 2.2, position = position_stack(vjust = 0.5)) + 
  
-   theme(plot.title = element_text(size = 12),
-         axis.text.x = element_text(size = 11),
-        axis.text.y = element_text(size = 11),
-        legend.text = element_text(size = 12),
+   theme(plot.title = element_text(size = 9),
+         axis.text.x = element_text(size = 8),
+        axis.text.y = element_text(size = 8),
+        legend.text = element_text(size = 8),
         legend.title = element_blank(),
       panel.background = element_rect(fill = "white"))
   
@@ -288,9 +286,20 @@ panel_fig7
 ##Combining figures 4, 5 and 7 together: Figure 4
 ```{r}
 
+#making a png file
+png(filename = "Panel_fig4.png",            
+  width = 2000,        
+  height = 1500,
+  res = 300,  
+  
+  ) 
+
+
 ggarrange(panel_fig5, ggarrange(panel_fig4, panel_fig7, nrow = 1, ncol = 2, common.legend = TRUE, legend  = "bottom"), nrow = 2, ncol = 1)
 
-ggsave("Panel_fig4.png", dpi = 300, height = 200 , width = 280, units = "mm")
+#ggsave("Panel_fig4.png", dpi = 300, height = 200 , width = 280, units = "mm")
+
+dev.off()
 
 ```
 
