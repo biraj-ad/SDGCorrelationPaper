@@ -95,7 +95,7 @@ rad_n = rbind(rep(1,17), rep(-1,17), rad_n)
 
 ```{r}
 #saving to png
-png(filename = "radar_nepal.png",            
+png(filename = "radar_all.png",            
  width = 1600,        
   height = 1400,
   res = 300,  
